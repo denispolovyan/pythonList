@@ -1,16 +1,21 @@
-arr = [21, 2, 7, 4, 9]
+arr = []
 counter = 0
 coincidence = False
 
-choice = input('\nYou can change el of array by index (i) or by value (v)\nChoose your route: ')
+userArray = input('\nEnter array from numbers divided with ","\n\tYour array: ')
+userArray = userArray.split(',')
+for el in userArray:
+    arr.append(int(el))
+
+choice = input('\nYou can change element of array by index (i) or by value (v)\n\tChoose your route: ')
 while choice != 'i' and choice != 'v':
     choice = input('\t\tError. Enter i or v: ')
 
-print('Array: ', arr)
+print('\nOld array: ', arr)
 
 if choice == 'i':
     oldNum = int(input('\tEnter index of array you wanna change: '))
-    while oldNum > 5 or oldNum < 1:
+    while oldNum > len(arr) or oldNum < 1:
         oldNum = int(input('\t\tError. Enter existing index: '))
     newNum = int(input('\tEnter value of array you wanna set: '))
 
@@ -34,4 +39,4 @@ else:
     arr.insert(counter, newNum)
     arr.remove(oldNum)
 
-print('Array: ', arr)
+print('\nNew array: ', arr)
