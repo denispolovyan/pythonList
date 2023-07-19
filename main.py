@@ -1,17 +1,31 @@
 arr = []
+userArray = []
 counter = 0
 coincidence = False
+enterArray = True
 
-userArray = input('\nEnter array from numbers divided with ","\n\tYour array: ')
-userArray = userArray.split(',')
+
+print('\nEnter array from number, type number and click "Enter"\nTo stop adding elements write anything but number')
+
+while enterArray:
+    el = input('\tPrint array element: ')
+    if not el.isnumeric():
+        if len(userArray) < 3:
+            print('\t\tError. Array must include at least 3 elements')
+            continue
+        else:
+            enterArray = False
+    else:
+        userArray.append(el)
+
 for el in userArray:
     arr.append(int(el))
+
+print('\nYour array: ', arr)
 
 choice = input('\nYou can change element of array by index (i) or by value (v)\n\tChoose your route: ')
 while choice != 'i' and choice != 'v':
     choice = input('\t\tError. Enter i or v: ')
-
-print('\nOld array: ', arr)
 
 if choice == 'i':
     oldNum = int(input('\tEnter index of array you wanna change: '))
