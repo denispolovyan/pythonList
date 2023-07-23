@@ -1,25 +1,69 @@
-arr = []
-userArray = []
-counter = 0
-coincidence = False
-enterArray = True
+def getArrayFromUser():
+    array = []
+    enterArray = True
+
+    while enterArray:
+        el = input('\tPrint array element: ')
+        if not el.isnumeric():
+            if len(array) < 3:
+                print('\t\tError. Array must include at least 3 elements')
+                continue
+            else:
+                enterArray = False
+        else:
+            array.append(el)
+
+    return array
+
+
+def changeElementsToInt(array):
+    newArray = []
+
+    for el in array:
+        newArray.append(int(el))
+    return newArray
+
+
+def changeNumByIndex(array):
+    newArray = array
+    oldNum = int(input('\tEnter index of array you wanna change: '))
+    while oldNum > len(newArray) or oldNum < 1:
+        oldNum = int(input('\t\tError. Enter existing index: '))
+    newNum = int(input('\tEnter value of array you wanna set: '))
+
+    newArray[oldNum - 1] = newNum
+    return newArray
+
+
+def changeNumByValue(array):
+    newArray = array
+    coincidence = False
+    counter = 0
+
+    oldNum = int(input('\tEnter value of array you wanna change: '))
+    while not coincidence:
+        for el in newArray:
+            if oldNum == el:
+                coincidence = True
+        if not coincidence:
+            oldNum = int(input('\t\tError. Enter existing value: '))
+    newNum = int(input('\tEnter value of array you wanna set: '))
+
+    for el in newArray:
+        if el == oldNum:
+            break
+        else:
+            counter += 1
+    newArray.insert(counter, newNum)
+    newArray.remove(oldNum)
+
+    return newArray
 
 
 print('\nEnter array from number, type number and click "Enter"\nTo stop adding elements write anything but number')
+userArray = getArrayFromUser()
 
-while enterArray:
-    el = input('\tPrint array element: ')
-    if not el.isnumeric():
-        if len(userArray) < 3:
-            print('\t\tError. Array must include at least 3 elements')
-            continue
-        else:
-            enterArray = False
-    else:
-        userArray.append(el)
-
-for el in userArray:
-    arr.append(int(el))
+arr = changeElementsToInt(userArray)
 
 print('\nYour array: ', arr)
 
@@ -28,29 +72,8 @@ while choice != 'i' and choice != 'v':
     choice = input('\t\tError. Enter i or v: ')
 
 if choice == 'i':
-    oldNum = int(input('\tEnter index of array you wanna change: '))
-    while oldNum > len(arr) or oldNum < 1:
-        oldNum = int(input('\t\tError. Enter existing index: '))
-    newNum = int(input('\tEnter value of array you wanna set: '))
-
-    res = arr
-    arr[oldNum - 1] = newNum
+    arr = changeNumByIndex(arr)
 else:
-    oldNum = int(input('\tEnter value of array you wanna change: '))
-    while not coincidence:
-        for el in arr:
-            if oldNum == el:
-                coincidence = True
-        if not coincidence:
-            oldNum = int(input('\t\tError. Enter existing value: '))
-    newNum = int(input('\tEnter value of array you wanna set: '))
-
-    for el in arr:
-        if el == oldNum:
-            break
-        else:
-            counter += 1
-    arr.insert(counter, newNum)
-    arr.remove(oldNum)
+    arr = changeNumByValue(arr)
 
 print('\nNew array: ', arr)
